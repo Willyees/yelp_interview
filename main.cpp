@@ -56,7 +56,7 @@ int find_most_similar_business(int businessOfInterestId, const vector<PositiveRe
 
 int main() {
 	vector<ps> reviews{ ps(10, 1), ps(10, 2), ps(10, 3), ps(9, 5), ps(8, 2), ps(8, 3) };
-	cout << "most similar business is " + find_most_similar_business(10, reviews);
+	cout << "most similar business is " + to_string(find_most_similar_business(10, reviews));
 
 	return 0;
 }
