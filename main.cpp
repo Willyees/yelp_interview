@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <assert.h>
 #include <iostream>
+#include <string>
 
 using namespace std;
 class PositiveReview {
@@ -37,13 +38,13 @@ int find_most_similar_business(int businessOfInterestId, const vector<PositiveRe
 	//all sets are created. find intersections and unions between set
 	double maxsimilarity = 0;
 	int maxsimilarbusiness = businessOfInterestId;//just initalize
-	for (auto businessPair: businessUsersMap) {
+	for (auto businessPair : businessUsersMap) {
 		if (businessPair.first == businessOfInterestId) continue;
 		vector<int> intersection, unions;
 		//find intersections and unions using stl
 		set_intersection(itBusinessInterest->second.begin(), itBusinessInterest->second.end(), businessPair.second.begin(), businessPair.second.end(), back_inserter(intersection));
 		set_union(itBusinessInterest->second.begin(), itBusinessInterest->second.end(), businessPair.second.begin(), businessPair.second.end(), back_inserter(unions));
-		double similarity = intersection.size() / unions.size();
+		double similarity = static_cast<double>(intersection.size()) / unions.size();//have to cast at least 1 element to double, so double division will be used. otherwise int is returned and then stored into double
 		if (similarity > maxsimilarity) {
 			maxsimilarity = similarity;
 			maxsimilarbusiness = businessPair.first;
@@ -54,8 +55,8 @@ int find_most_similar_business(int businessOfInterestId, const vector<PositiveRe
 
 
 int main() {
-	vector<ps> reviews {ps(10, 1), ps(10, 2), ps(10, 3), ps(9, 5), ps(8, 2), ps(8, 3)};
-	cout << "most similar business is: " + find_most_similar_business(10, reviews);
+	vector<ps> reviews{ ps(10, 1), ps(10, 2), ps(10, 3), ps(9, 5), ps(8, 2), ps(8, 3) };
+	cout << "most similar business is " + find_most_similar_business(10, reviews);
 
 	return 0;
 }
