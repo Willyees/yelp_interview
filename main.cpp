@@ -1,5 +1,6 @@
 #include <set>
 #include <map>
+#include <unordered_map>
 #include <vector>
 #include <algorithm>
 #include <assert.h>
@@ -21,7 +22,7 @@ using ps = PositiveReview;
 //transform the positivereview vector into a map which links businessid with their set of unique users review. find the intersections and unions between each businessid and the interseted one. store the most similar, return it
 int find_most_similar_business(int businessOfInterestId, const vector<PositiveReview>& positiveReviews) {
 	//create one set for each businessid
-	map<int, set<int>> businessUsersMap;//key:businessid, value: set<userid>
+	unordered_map<int, set<int>> businessUsersMap;//key:businessid, value: set<userid>
 	for (PositiveReview review : positiveReviews) {
 		auto it = businessUsersMap.find(review.businessId);
 		if (it == businessUsersMap.end()) {//business is in the map
